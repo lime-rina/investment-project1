@@ -1,25 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { calculateInvestmentResults } from "../util/investment";
 
 
 export default function Inputs({ setResults }) {
     const [calculatorData, setCalculatorData] = useState({
-        initialInvestment: 0,
-        annualInvestment: 0,
-        expectedReturn: 0,
-        duration: 0
+        initialInvestment: 10000,
+        annualInvestment: 300,
+        expectedReturn: 5.5,
+        duration: 12
     })
 
+    useEffect(() => {
+        handleResults()
+    }, [])
 
     const handleResults = () => {
         const results = calculateInvestmentResults(calculatorData)
-        setResults(results)
+        if (results.length > 0) {
+            setResults(results)
+        }
+        else setResults([])
     }
     const handleChange = (change) => {
         const data = change.target.value;
         const entry = change.target.name;
 
-        const updatedCalculatorData = { ...calculatorData, [entry]: data };
+        const updatedCalculatorData = { ...calculatorData, [entry]: +data };
         setCalculatorData(updatedCalculatorData);
         handleResults()
     }

@@ -6,7 +6,7 @@ import Results from "./components/Results";
 function App() {
   const [calculatedResults, setCalculatedResults] = useState([])
 
-  function handler() {
+  function handler(e) {
     setCalculatedResults(e);
   }
 
